@@ -2,7 +2,7 @@
 - create React App
 - configured tailwind
 
-# Feaures (login)
+# Features (login)
 - Browse 
   -Header
   -Main Movie
