@@ -13,7 +13,6 @@ const Login = () => {
     const [inputValue, setInputValue] = useState({name: "", email:"", password:""});
     const [inputError, setInputError] = useState({});
     const [inputTouch, setInputTouch] = useState({name: false, email: false, password: false});
-     const navigate = useNavigate();
      const dispatch = useDispatch();
 
     const handleChange = (e) => {
@@ -73,7 +72,6 @@ const Login = () => {
                             email: email,
                             displayName: displayName
                         }));
-                        navigate("/browse");
                     }).catch((error) => {
                         setInputError(prev => ({...prev, error: error}))
                     });
@@ -92,7 +90,6 @@ const Login = () => {
                 // Signed in 
                 const user = userCredential.user;
                console.log(user);
-               navigate("/browse");
             })
             .catch((error) => {
                 const errorCode = error.code;
