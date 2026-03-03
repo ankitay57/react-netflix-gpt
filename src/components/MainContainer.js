@@ -4,7 +4,7 @@ import { MdPlayArrow } from "react-icons/md";
 import useVideo from "./customHooks/useVideo";
 
 const MainContainer = () => {
-    const getMovies = useSelector((store) => store?.movies?.movieData);
+    const getMovies = useSelector((store) => store?.movies?.nowPlayingMovie);
    
     const trending = getMovies[0];
     useVideo(trending);
@@ -14,10 +14,10 @@ const MainContainer = () => {
    }
     return(
         <div className="relative">
-            <div className="video h-lvh w-full">
+            <div className="overflow-x-hidden">
                 <iframe
-                    className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${trending.trailer}?autoplay=1&mute=1&rel=0&controls=1`}
+                    className="w-screen aspect-video"
+                    src={`https://www.youtube.com/embed/${trending.trailer}?autoplay=1&mute=1&rel=0&controls=0`}
                     allowFullScreen
                 ></iframe>
             </div>

@@ -3,7 +3,7 @@ import { options } from "../../utils/constants.js";
 import { useDispatch} from "react-redux";
 import { addMovie } from "../../utils/movieSlice.js";
 
- const useFetchMovie = () => {
+ const useNowPlayingMovie = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', options)
@@ -13,4 +13,4 @@ import { addMovie } from "../../utils/movieSlice.js";
         }, []);
 }
 
-export default useFetchMovie;
+export default useNowPlayingMovie;

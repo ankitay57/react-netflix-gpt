@@ -6,16 +6,23 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../utils/userSlice.js";
 import { LOGO_URL, USER_URL } from "../utils/constants.js";
+import {changeGptState} from "../utils/gptSlice.js";
+import { addLang } from "../utils/languageSlice.js";
 
 const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userSelect = useSelector((store) => store.user);
+    const gptState = useSelector((store) => store.gptPage.gptEnable);
     const handleSignout = () =>{
         signOut(auth).then(() => {
         }).catch((error) => {
            navigate("/error");
         });
+    }
+
+    const handleLangChange = (e) => {
+         dispatch(addLang(e.target.value));
     }
 
     useEffect(() => {
@@ -35,10 +42,23 @@ const Header = () => {
             // this will be called when component unmounts
             return () => unsubscribe();
     }, [])
+
+    const handleGpt = (e) => {
+        e.preventDefault();
+        dispatch(changeGptState());
+    }
     return (
         <div className="p-10 border-b border-[#563d3d] fixed top-0 w-full z-10">
             <div className="w-full max-w-[1200px] mx-auto flex justify-between">
                 <img className = "w-32" src = {LOGO_URL} alt="logo"/>
+                <div>
+                    <button className = "rounded-sm text-white border border-white px-2 py-1" onClick={handleGpt}> {gptState ? "Home Page" : "Search Gpt"} </button>
+                </div>
+                {gptState && 
+                <select onChange={handleLangChange}>
+                    <option name="english" value="english">English</option>
+                    <option name="hindi" value="hindi">Hindi</option>
+                </select>}
                 {userSelect && <div className="cursor-pointer">
                     <img className="w-[32px]" src= {USER_URL} alt="user" />
                     <span>{userSelect.displayName}</span>
